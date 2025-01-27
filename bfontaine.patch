@@ -1,0 +1,37 @@
+diff --git a/src/curdisp.c b/src/curdisp.c
+index 168786b..828f694 100644
+--- a/src/curdisp.c
++++ b/src/curdisp.c
+@@ -428,7 +428,8 @@ agets5(str, maxchar, attr)
+           str--;
+           maxchar++;
+           leaveok(curwin, TRUE);
+-          if (ox = curwin->_curx) {
++          getyx(curwin, oy, ox);
++          if (ox) {
+ #if 0
+ #ifdef ATTRIBUTE
+             mvwaddch(curwin, curwin->_cury, --ox, ' ' | attr);
+@@ -436,10 +437,10 @@ agets5(str, maxchar, attr)
+             mvwaddch(curwin, curwin->_cury, --ox, ' ');
+ #endif
+ #endif                                /* 0 */
+-            mvwaddch(curwin, curwin->_cury, --ox, ' ');
+-            wmove(curwin, curwin->_cury, ox);
++            mvwaddch(curwin, oy, --ox, ' ');
++            wmove(curwin, oy, ox);
+           } else {
+-            oy = curwin->_cury - 1;
++            oy = oy - 1;
+ #if 0
+ #ifdef ATTRIBUTE
+             mvwaddch(curwin, oy, COLS - 1, ' ' | attr);
+@@ -475,7 +476,7 @@ agets5(str, maxchar, attr)
+             mvwaddch(curwin, curwin->_cury, ox, ' ');
+ #endif
+ #endif                                /* 0 */
+-          mvwaddch(curwin, curwin->_cury, ox, ' ');
++          mvwaddch(curwin, oy, ox, ' ');
+           else
+ #if 0
+ #ifdef ATTRIBUTE
