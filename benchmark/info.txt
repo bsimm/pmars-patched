@@ -1,0 +1,1 @@
+These benchmark collections are taken from http://www.corewar.info
